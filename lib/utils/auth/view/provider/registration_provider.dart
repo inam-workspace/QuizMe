@@ -9,6 +9,13 @@ class RegistrationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  set setIsLoading(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -37,17 +44,18 @@ class RegistrationProvider extends ChangeNotifier {
     validateUsername(username);
     validatePassword(password);
     validateConfirmPassword(confPassword, password);
-    showProcessingDialog();
+    setIsLoading = true;
     final result =
         await GetAuth.instance.signUpWithEmail(username, email, password);
     result.fold(
       (fail) {
-        Push.back();
+        setIsLoading = false;
         setFailure = fail;
       },
-      (authModel) {
+      (authModel) async {
         AppController.instance.setAuthDetails = authModel;
-        Push.back();
+        await AppController.instance.getUserStreak(authModel.uid!);
+        setIsLoading = false;
         Push.replace(route: '/dashboardScreen');
       },
     );

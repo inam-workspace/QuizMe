@@ -96,7 +96,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: gapSymmetric(horizontal: 20),
-                      child: CustomButton(
+                      child:  provider.isLoading
+                          ? Image.asset(
+                              'assets/animation/loading.gif',
+                             height: h(50),
+                            )
+                          : CustomButton(
                         width: double.infinity,
                         borderRadius: 10,
                         backgroundColor: Theme.of(context).primaryColor,

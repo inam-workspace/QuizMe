@@ -4,12 +4,12 @@ import 'package:quiz_me/core/global/functions/resize.dart';
 
 AnimatedContainer buildDot(context, int index, int currentPage) {
   double baseHeight = h(4);
-  double baseWidth = h(4);
+  double baseWidth = w(4);
   double selectedWidth = w(16);
 
   if (screenHeight > 360) {
     baseHeight = h(5);
-    baseWidth = h(5);
+    baseWidth = w(5);
     selectedWidth = w(20);
   }
 

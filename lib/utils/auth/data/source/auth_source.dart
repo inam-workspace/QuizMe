@@ -48,7 +48,22 @@ class AuthSource implements AuthDataSource {
         displayName: data['username'],
         photoURL: data['imageUrl'],
       );
-    } on FireException {
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "user-not-found":
+          showWarningToast('Alert!!!', 'No user found with this email.');
+          break;
+        case "wrong-password":
+          showWarningToast('Alert!!!', 'Incorrect password.');
+          break;
+        case "invalid-email":
+          showWarningToast('Alert!!!', 'Invalid email format.');
+          break;
+        default:
+          showWarningToast('Alert!!!', 'Login failed. Please try again.');
+      }
+      throw FireException();
+    } catch (e) {
       throw FireException();
     }
   }

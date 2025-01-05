@@ -97,12 +97,13 @@ class DrawerScreen extends StatelessWidget {
                   .titleLarge!
                   .copyWith(color: Theme.of(context).scaffoldBackgroundColor),
             ),
-            Text(
-                streakModel!.streak == 1
-                    ? '1 Day Streak 🔥'
-                    : '${streakModel.streak} Days Streak 🔥',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).scaffoldBackgroundColor)),
+            if (streakModel != null)
+              Text(
+                  streakModel.streak == 1
+                      ? '1 Day Streak 🔥'
+                      : '${streakModel.streak} Days Streak 🔥',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Theme.of(context).scaffoldBackgroundColor)),
             SizedBox(height: h(20)),
           ],
         ),

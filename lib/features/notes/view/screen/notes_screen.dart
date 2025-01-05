@@ -70,6 +70,11 @@ class NotesScreen extends StatelessWidget {
                             'assets/animation/loading.gif',
                             height: h(75),
                           ),
+                          Text(
+                            'Hang tight!\nwe’re putting together your Notes.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ],
                       )
                     : Padding(

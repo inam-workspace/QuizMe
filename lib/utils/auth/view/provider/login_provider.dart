@@ -9,10 +9,18 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  set setIsLoading(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _showPassword = false;
   bool get showPassword => _showPassword;
+
   toggleShowPassword() {
     _showPassword = !showPassword;
     notifyListeners();
@@ -23,17 +31,17 @@ class LoginProvider extends ChangeNotifier {
     final password = passwordController.text;
     validateEmail(email);
     validatePassword(password);
-
-    showProcessingDialog();
+    setIsLoading = true;
     final result = await GetAuth.instance.loginWithEmail(email, password);
     result.fold(
       (fail) {
+        setIsLoading = false;
         setFailure = fail;
-        Push.back();
       },
-      (authModel) {
+      (authModel) async {
         AppController.instance.setAuthDetails = authModel;
-        Push.back();
+        await AppController.instance.getUserStreak(authModel.uid!);
+        setIsLoading = false;
         Push.replace(route: '/dashboardScreen');
       },
     );

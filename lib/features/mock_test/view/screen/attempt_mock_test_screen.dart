@@ -58,6 +58,11 @@ class AttemptMockTestScreen extends StatelessWidget {
                             'assets/animation/loading.gif',
                             height: h(75),
                           ),
+                          Text(
+                            'Hang tight!\nwe’re putting together your Mock Test.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ],
                       )
                     : Column(

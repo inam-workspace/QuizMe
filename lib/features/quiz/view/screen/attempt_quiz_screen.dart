@@ -1,4 +1,3 @@
-
 import 'package:quiz_me/main/imports.dart';
 
 class AttemptQuizScreenArguments {
@@ -58,6 +57,11 @@ class AttemptQuizScreen extends StatelessWidget {
                           Image.asset(
                             'assets/animation/loading.gif',
                             height: h(75),
+                          ),
+                          Text(
+                            'Hang tight!\nwe’re putting together your Flashcard.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       )
@@ -151,7 +155,8 @@ class AttemptQuizScreen extends StatelessWidget {
                                     ),
                                   ),
                                 if (provider.reviewMode &&
-                                    provider.currentIndex > 0) SizedBox(width: w(10)),
+                                    provider.currentIndex > 0)
+                                  SizedBox(width: w(10)),
                                 Flexible(
                                   child: CustomButton(
                                     width: double.infinity,
