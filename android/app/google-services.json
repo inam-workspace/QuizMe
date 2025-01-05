@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "122434148246",
+    "project_id": "quizme-93173",
+    "storage_bucket": "quizme-93173.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122434148246:android:64f89fd7059d7b3010efb7",
+        "android_client_info": {
+          "package_name": "com.example.quizme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvCWPJUwrwuuMPiRcUYxrFxYxjc8i4G80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
