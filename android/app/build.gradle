@@ -28,12 +28,21 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+    release {
+        storeFile file('upload-keystore.jks') 
+        storePassword 'quizme'
+        keyAlias 'upload'
+        keyPassword 'quizme'
+    }
+}
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
-        //    minifyEnabled true
-        //    shrinkResources false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig = signingConfigs.release
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
