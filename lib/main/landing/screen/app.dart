@@ -1,3 +1,5 @@
+
+import 'package:quiz_me/features/onboarding/screen/onboarding_screen.dart';
 import 'package:quiz_me/main/imports.dart';
 
 class MyApp extends StatelessWidget {
@@ -31,7 +33,21 @@ class MyApp extends StatelessWidget {
                 return SplashScreen();
               } else {
                 return snapshot.hasData && snapshot.data == true
-                    ? DashboardScreen()
+                    ? FutureBuilder(
+                        future: AppController.instance.checkOnboarding(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return SplashScreen();
+                          } else {
+                            if (snapshot.hasData && snapshot.data == false) {
+                              return OnboardingScreen();
+                            } else {
+                              return DashboardScreen();
+                            }
+                          }
+                        },
+                      )
                     : LoginScreen();
               }
             },

@@ -1,4 +1,5 @@
 import 'package:quiz_me/main/imports.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppController {
   static AppController instance = AppController._();
@@ -85,5 +86,15 @@ class AppController {
         }
       },
     );
+  }
+
+  Future<bool> checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool? onboarding = prefs.getBool('onboarding');
+    if (onboarding == null) {
+      return false;
+    } else {
+      return onboarding;
+    }
   }
 }
