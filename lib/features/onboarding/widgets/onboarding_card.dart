@@ -1,7 +1,14 @@
 import 'package:quiz_me/main/imports.dart';
 
 class OnboardingCard extends StatelessWidget {
-  const OnboardingCard({super.key});
+  final String title;
+  final String subtitle;
+  final String image;
+  const OnboardingCard(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +25,19 @@ class OnboardingCard extends StatelessWidget {
             ),
             child: Padding(
               padding: gapOnly(top: 75),
-              child: Image.asset('assets/images/onboard_1.png'),
+              child: Image.asset(image),
             ),
           ),
           Spacer(),
           Text(
-            'Title Goes here',
+            title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(height: h(10)),
           Padding(
             padding: gapSymmetric(horizontal: 20),
             child: Text(
-              'lorem ipsem is a dummy text. lorem ipsem is a dummy text. lorem ipsem is a dummy text. lorem ipsem is a dummy text.',
+              subtitle,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelLarge,
             ),

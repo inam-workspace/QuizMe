@@ -22,18 +22,20 @@ class OnboardingScreen extends StatelessWidget {
                     child: PageView(
                       controller: provider.controller,
                       onPageChanged: (index) => provider.setPage = index,
-                      children: [
-                        OnboardingCard(),
-                        OnboardingCard(),
-                        OnboardingCard(),
-                        OnboardingCard(),
-                      ],
+                      children: List.generate(provider.onboardingData.length,
+                          (index) {
+                        return OnboardingCard(
+                          title: provider.onboardingData[index]['title'],
+                          subtitle: provider.onboardingData[index]['subtitle'],
+                          image: provider.onboardingData[index]['image'],
+                        );
+                      }),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
-                      4,
+                      provider.onboardingData.length,
                       (index) => buildDot(context, index, provider.page),
                     ),
                   ),
