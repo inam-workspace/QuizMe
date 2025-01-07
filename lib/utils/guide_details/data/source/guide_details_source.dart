@@ -140,13 +140,11 @@ class GuideDetailsSourceImpl implements GuideDetailsDataSource {
             throw ServerException();
           }
         } on DioException catch (e) {
-          logInfo(e.toString());
+          logError(e.toString());
           throw ServerException();
         }
       },
-    ).catchError((error) {
-      throw ServerException();
-    });
+    );
   }
 
   String promptFormate(String content) {
