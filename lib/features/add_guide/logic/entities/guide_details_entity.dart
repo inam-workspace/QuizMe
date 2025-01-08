@@ -1,12 +1,11 @@
-import 'package:quiz_me/features/add_guide/logic/entities/chapter_details_entity.dart';
-import 'package:quiz_me/features/add_guide/logic/entities/icon_details_entity.dart';
+import 'package:quiz_me/main/imports.dart';
 
 class GuideDetailsEntity {
   final String authId;
   final String guideTitle;
   final List<ChapterDetailsEntity> chaptersDetail;
   final IconDetailsEntity iconDetails;
-  final DateTime dateTime;
+  final int dateTime;
   double quizPercentage;
   double mockPercentage;
   double overallPercentage;
@@ -43,7 +42,7 @@ class GuideDetailsEntity {
       chaptersDetail: List<ChapterDetailsEntity>.from(
           json["chapters_detail"].map((x) => ChapterDetailsEntity.fromJson(x))),
       iconDetails: IconDetailsEntity.fromJson(json["icon_details"]),
-      dateTime: json['date_time'] as DateTime,
+      dateTime: (json['date_time'] as int),
       quizPercentage: json['quiz_percentage'] as double,
       mockPercentage: json['mock_percentage'] as double,
       overallPercentage: json['overall_percentage'] as double,

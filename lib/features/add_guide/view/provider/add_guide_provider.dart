@@ -256,7 +256,7 @@ class AddGuideProvider extends ChangeNotifier {
         iconColor: iconDetails.iconColor.value.toRadixString(16).toUpperCase(),
         iconPath: iconDetails.iconPath,
       ),
-      dateTime: DateTime.now(),
+      dateTime: DateTime.now().millisecondsSinceEpoch,
       quizPercentage: 0.0,
       mockPercentage: 0.0,
       overallPercentage: 0.0,

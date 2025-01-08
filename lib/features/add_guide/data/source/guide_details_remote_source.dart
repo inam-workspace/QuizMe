@@ -44,8 +44,10 @@ class GuideDetailsRemoteSourceImpl implements GuideDetailsRemoteSource {
   }) async {
     try {
       final currentList = await getGuideDetail(id: id);
-      currentList.removeWhere((item) => item.dateTime == data.dateTime);
-      await _collection.doc(id).update({'study_guides': currentList.map((item) => item.toJson()).toList()});
+      currentList.removeWhere(
+          (item) => item.dateTime.millisecondsSinceEpoch == data.dateTime);
+      await _collection.doc(id).update(
+          {'study_guides': currentList.map((item) => item.toJson()).toList()});
     } on Exception {
       throw FireException();
     }
@@ -75,7 +77,8 @@ class GuideDetailsRemoteSourceImpl implements GuideDetailsRemoteSource {
     try {
       final currentList = await getGuideDetail(id: id);
       currentList.add(GuideDetailsModel.fromJson(data.toJson()));
-      await _collection.doc(id).update({'study_guides': currentList.map((item) => item.toJson()).toList()});
+      await _collection.doc(id).update(
+          {'study_guides': currentList.map((item) => item.toJson()).toList()});
     } on Exception {
       throw FireException();
     }
