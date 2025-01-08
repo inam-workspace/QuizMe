@@ -29,7 +29,7 @@ abstract class AuthDataSource {
 
 class AuthSource implements AuthDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _collection = FirebaseFirestore.instance.collection('users');
   final FirebaseStorage _storage = FirebaseStorage.instance;
   @override
   loginWithEmail(String email, String password) async {
@@ -40,13 +40,14 @@ class AuthSource implements AuthDataSource {
       ))
           .user;
       String id = user!.uid;
-      DocumentSnapshot doc = await _firestore.collection('users').doc(id).get();
+      DocumentSnapshot doc = await _collection.doc(id).get();
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return AuthModel(
         uid: id,
         email: data['email'],
         displayName: data['username'],
         photoURL: data['imageUrl'],
+        studyGuides: data['study_guides'],
       );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -91,18 +92,23 @@ class AuthSource implements AuthDataSource {
       final userCredential = await _auth.signInWithCredential(authCredential);
       final User? user = userCredential.user;
       String id = user!.uid;
-      await _firestore.collection('users').doc(id).set({
-        'username': user.displayName,
-        'email': user.email,
-        'imageUrl': user.photoURL,
-        'study_guides': []
-      });
-      return AuthModel(
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      );
+      DocumentSnapshot doc = await _collection.doc(id).get();
+      if (doc.exists) {
+        return getAuthDetails(id);
+      } else {
+        await _collection.doc(id).set({
+          'username': user.displayName,
+          'email': user.email,
+          'imageUrl': user.photoURL,
+          'study_guides': []
+        });
+        return AuthModel(
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        );
+      }
     } on FireException {
       throw FireException();
     }
@@ -122,18 +128,23 @@ class AuthSource implements AuthDataSource {
           await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;
       String id = user!.uid;
-      await _firestore.collection('users').doc(id).set({
-        'username': user.displayName,
-        'email': user.email,
-        'imageUrl': user.photoURL,
-        'study_guides': []
-      });
-      return AuthModel(
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      );
+      DocumentSnapshot doc = await _collection.doc(id).get();
+      if (doc.exists) {
+        return getAuthDetails(id);
+      } else {
+        await _collection.doc(id).set({
+          'username': user.displayName,
+          'email': user.email,
+          'imageUrl': user.photoURL,
+          'study_guides': []
+        });
+        return AuthModel(
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        );
+      }
     } on FireException {
       throw FireException();
     }
@@ -148,18 +159,24 @@ class AuthSource implements AuthDataSource {
       ))
           .user;
       String id = user!.uid;
-      await _firestore.collection('users').doc(id).set({
-        'username': username,
-        'email': email,
-        'imageUrl': '',
-        'study_guides': []
-      });
-      return AuthModel(
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      );
+
+      DocumentSnapshot doc = await _collection.doc(id).get();
+      if (doc.exists) {
+        return getAuthDetails(id);
+      } else {
+        await _collection.doc(id).set({
+          'username': username,
+          'email': email,
+          'imageUrl': '',
+          'study_guides': []
+        });
+        return AuthModel(
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        );
+      }
     } on FireException {
       throw FireException();
     }
@@ -189,7 +206,7 @@ class AuthSource implements AuthDataSource {
       Reference ref = _storage.ref().child('profile_images/$id.jpg');
       await ref.putData(image);
       String imageUrl = await ref.getDownloadURL();
-      await _firestore.collection('users').doc(id).update({
+      await _collection.doc(id).update({
         'imageUrl': imageUrl,
       });
     } on FireException {
@@ -200,7 +217,7 @@ class AuthSource implements AuthDataSource {
   @override
   getAuthDetails(String id) async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('users').doc(id).get();
+      DocumentSnapshot doc = await _collection.doc(id).get();
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return AuthModel(
         uid: id,
@@ -217,8 +234,7 @@ class AuthSource implements AuthDataSource {
   @override
   getUserStreak(String id) async {
     try {
-      DocumentSnapshot doc =
-          await _firestore.collection('users_streak').doc(id).get();
+      DocumentSnapshot doc = await _collection.doc(id).get();
       if (doc.exists) {
         return StreakModel.fromMap(doc.data() as Map<String, dynamic>);
       }
@@ -231,10 +247,7 @@ class AuthSource implements AuthDataSource {
   @override
   updateUserStreak(String id, StreakModel streakData) async {
     try {
-      await _firestore
-          .collection('users_streak')
-          .doc(id)
-          .set(streakData.toMap());
+      await _collection.doc(id).set(streakData.toMap());
     } on FireException {
       throw FireException();
     }

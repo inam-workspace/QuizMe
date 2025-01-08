@@ -29,7 +29,6 @@ class ChapterModel {
 }
 
 class AddGuideProvider extends ChangeNotifier {
-  final uid = AppController.instance.currentUser!.uid;
   final drawerController = AdvancedDrawerController();
   GuideDetailsRepo repository = GuideDetailsRepoImpl();
   final guideNameController = TextEditingController();
@@ -236,6 +235,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   processGuideDetails() async {
+    final uid = AppController.instance.currentUser!.uid;
     showProcessingDialog();
     List<ChapterDetailsEntity> chaptersDetail = [];
     for (var chapter in chapters) {
@@ -266,6 +266,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   get() async {
+    final uid = AppController.instance.currentUser!.uid;
     setLoading = true;
     final failureOrResult = await GetGuideDetails(repository).get(id: uid);
     failureOrResult.fold((fail) {
@@ -289,6 +290,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   add(GuideDetailsEntity payload) async {
+    final uid = AppController.instance.currentUser!.uid;
     final failureOrResult =
         await GetGuideDetails(repository).add(data: payload, id: uid);
     failureOrResult.fold((fail) {
@@ -303,6 +305,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   delete(GuideDetailsEntity payload) async {
+    final uid = AppController.instance.currentUser!.uid;
     final failureOrResult =
         await GetGuideDetails(repository).delete(data: payload, id: uid);
     failureOrResult.fold((fail) {
@@ -313,6 +316,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   update(GuideDetailsEntity payload) async {
+    final uid = AppController.instance.currentUser!.uid;
     final failureOrResult =
         await GetGuideDetails(repository).update(data: payload, id: uid);
     failureOrResult.fold((fail) {

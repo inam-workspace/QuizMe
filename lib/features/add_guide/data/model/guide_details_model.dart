@@ -11,7 +11,7 @@ class GuideDetailsModel extends HiveObject {
   @HiveField(3)
   final IconDetailsEntity iconDetails;
   @HiveField(4)
-  final DateTime dateTime;
+  final int dateTime;
   @HiveField(5)
   final double quizPercentage;
   @HiveField(6)

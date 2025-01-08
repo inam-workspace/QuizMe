@@ -39,11 +39,22 @@ class LoginProvider extends ChangeNotifier {
         setFailure = fail;
       },
       (authModel) async {
-        final appProvider = Provider.of<AppController>(Push.context,listen: false);
-        appProvider.setAndNotifyAuthDetails = authModel;
-        await AppController.instance.getUserStreak(authModel.uid!);
-        setIsLoading = false;
-        Push.replace(route: '/dashboardScreen');
+        final appProvider =
+            Provider.of<AppController>(Push.context, listen: false);
+        await GetAuth.instance.checkAuthState().then(
+          (User? user) async {
+            if (user != null) {
+              appProvider.setAndNotifyCurrentUser = user;
+              appProvider.setAndNotifyAuthDetails = authModel;
+              await AppController.instance.getUserStreak(
+                user.uid,
+                notify: true,
+              );
+              setIsLoading = false;
+              Push.replace(route: '/dashboardScreen');
+            }
+          },
+        );
       },
     );
   }

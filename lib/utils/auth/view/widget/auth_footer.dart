@@ -169,9 +169,17 @@ class AuthFooter extends StatelessWidget {
       (authModel) async {
         final appProvider =
             Provider.of<AppController>(Push.context, listen: false);
-        appProvider.setAndNotifyAuthDetails = authModel;
-        await AppController.instance.getUserStreak(authModel.uid!);
-        Push.replace(route: '/dashboardScreen');
+        await GetAuth.instance.checkAuthState().then((User? user) async {
+          if (user != null) {
+            appProvider.setAndNotifyCurrentUser = user;
+            appProvider.setAndNotifyAuthDetails = authModel;
+            await AppController.instance.getUserStreak(
+              user.uid,
+              notify: true,
+            );
+            Push.replace(route: '/dashboardScreen');
+          }
+        });
       },
     );
   }
@@ -183,9 +191,17 @@ class AuthFooter extends StatelessWidget {
       (authModel) async {
         final appProvider =
             Provider.of<AppController>(Push.context, listen: false);
-        appProvider.setAndNotifyAuthDetails = authModel;
-        await AppController.instance.getUserStreak(authModel.uid!);
-        Push.replace(route: '/dashboardScreen');
+        await GetAuth.instance.checkAuthState().then((User? user) async {
+          if (user != null) {
+            appProvider.setAndNotifyCurrentUser = user;
+            appProvider.setAndNotifyAuthDetails = authModel;
+            await AppController.instance.getUserStreak(
+              user.uid,
+              notify: true,
+            );
+            Push.replace(route: '/dashboardScreen');
+          }
+        });
       },
     );
   }

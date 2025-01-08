@@ -37,6 +37,11 @@ class AppController extends ChangeNotifier {
     _currentUser = user;
   }
 
+  set setAndNotifyCurrentUser(User? user) {
+    _currentUser = user;
+    notifyListeners();
+  }
+
   Future<bool> checkAuth() async {
     return GetAuth.instance.checkAuthState().then(
       (User? user) async {
