@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return ToastificationWrapper(
       child: MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => AppController()),
           ChangeNotifierProvider(create: (_) => AddGuideProvider()),
         ],
         child: MaterialApp(

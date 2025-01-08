@@ -29,6 +29,7 @@ class ChapterModel {
 }
 
 class AddGuideProvider extends ChangeNotifier {
+  final uid = AppController.instance.currentUser!.uid;
   final drawerController = AdvancedDrawerController();
   GuideDetailsRepo repository = GuideDetailsRepoImpl();
   final guideNameController = TextEditingController();
@@ -248,6 +249,7 @@ class AddGuideProvider extends ChangeNotifier {
     }
     final iconDetails = icons.firstWhere((e) => e.selected == true);
     final payload = GuideDetailsEntity(
+      authId: uid,
       guideTitle: guideNameController.text,
       chaptersDetail: chaptersDetail,
       iconDetails: IconDetailsEntity(
@@ -265,7 +267,7 @@ class AddGuideProvider extends ChangeNotifier {
 
   get() async {
     setLoading = true;
-    final failureOrResult = await GetGuideDetails(repository).get();
+    final failureOrResult = await GetGuideDetails(repository).get(id: uid);
     failureOrResult.fold((fail) {
       setFailure = fail;
       setLoading = false;
@@ -288,7 +290,7 @@ class AddGuideProvider extends ChangeNotifier {
 
   add(GuideDetailsEntity payload) async {
     final failureOrResult =
-        await GetGuideDetails(repository).add(data: payload);
+        await GetGuideDetails(repository).add(data: payload, id: uid);
     failureOrResult.fold((fail) {
       Push.back();
       setFailure = fail;
@@ -302,7 +304,7 @@ class AddGuideProvider extends ChangeNotifier {
 
   delete(GuideDetailsEntity payload) async {
     final failureOrResult =
-        await GetGuideDetails(repository).delete(data: payload);
+        await GetGuideDetails(repository).delete(data: payload, id: uid);
     failureOrResult.fold((fail) {
       setFailure = fail;
     }, (result) {
@@ -312,7 +314,7 @@ class AddGuideProvider extends ChangeNotifier {
 
   update(GuideDetailsEntity payload) async {
     final failureOrResult =
-        await GetGuideDetails(repository).update(data: payload);
+        await GetGuideDetails(repository).update(data: payload, id: uid);
     failureOrResult.fold((fail) {
       setFailure = fail;
     }, (result) {
@@ -340,9 +342,8 @@ class AddGuideProvider extends ChangeNotifier {
 
   //Scanning Text from PDF
   Future<String> extractTextFromPdf(String filePath) async {
-    final ByteData data = await rootBundle.load(filePath);
-    final List<int> bytes = data.buffer.asUint8List();
-
+    final File data = File(filePath);
+    final List<int> bytes = data.readAsBytesSync();
     PdfDocument document = PdfDocument(inputBytes: bytes);
     String text = PdfTextExtractor(document).extractText();
     document.dispose();

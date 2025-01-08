@@ -90,6 +90,7 @@ class NameGuidePage extends StatelessWidget {
                 ),
                 height: h(50),
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   if (provider.guideNameController.text.isEmpty) {
                     showWarningToast('Alert!!!', 'Guide name must required*');
                   } else {

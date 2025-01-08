@@ -166,7 +166,11 @@ class AuthFooter extends StatelessWidget {
     final result = await GetAuth.instance.signInWithGoogle();
     result.fold(
       (fail) {},
-      (authModel) {
+      (authModel) async {
+        final appProvider =
+            Provider.of<AppController>(Push.context, listen: false);
+        appProvider.setAndNotifyAuthDetails = authModel;
+        await AppController.instance.getUserStreak(authModel.uid!);
         Push.replace(route: '/dashboardScreen');
       },
     );
@@ -176,7 +180,11 @@ class AuthFooter extends StatelessWidget {
     final result = await GetAuth.instance.signInWithApple();
     result.fold(
       (fail) {},
-      (authModel) {
+      (authModel) async {
+        final appProvider =
+            Provider.of<AppController>(Push.context, listen: false);
+        appProvider.setAndNotifyAuthDetails = authModel;
+        await AppController.instance.getUserStreak(authModel.uid!);
         Push.replace(route: '/dashboardScreen');
       },
     );

@@ -260,7 +260,7 @@ $content
     double chapterContribution = chapterScore * chapterWeight;
     currentScore += chapterContribution;
     guideDetails.mockPercentage = currentScore;
-    guideDetails.overallPercentage = currentScore + quizPercentage;
+    guideDetails.overallPercentage = (currentScore + quizPercentage) / 2;
     guideProvider.update(guideDetails);
   }
 }

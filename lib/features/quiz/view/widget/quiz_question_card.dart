@@ -68,6 +68,7 @@ class QuizQuestionCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     onChanged: (value) {
+                      if (provider.selectedAnswers[question] != '') return;
                       if (provider.reviewMode) return;
                       provider.setAnswer(question, value!);
                     },
@@ -75,7 +76,7 @@ class QuizQuestionCard extends StatelessWidget {
                 );
               },
             ),
-            if (provider.reviewMode)
+            if (provider.selectedAnswers[question] != '')
               Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

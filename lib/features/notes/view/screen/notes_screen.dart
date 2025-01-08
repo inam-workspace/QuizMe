@@ -46,16 +46,17 @@ class NotesScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 actions: [
-                  IconButton(
-                    onPressed: () => provider.shareNotes(),
-                    icon: SvgPicture.asset(
-                      'assets/icons/replay.svg',
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).primaryColor,
-                        BlendMode.srcIn,
+                  if (provider.result != null)
+                    IconButton(
+                      onPressed: () => provider.shareNotes(),
+                      icon: SvgPicture.asset(
+                        'assets/icons/replay.svg',
+                        colorFilter: ColorFilter.mode(
+                          Theme.of(context).primaryColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
               body: SizedBox(

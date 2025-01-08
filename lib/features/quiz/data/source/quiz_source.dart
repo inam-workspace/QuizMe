@@ -32,7 +32,6 @@ class QuizSource implements QuizDataSource {
         ),
       );
       if (response.statusCode == 200) {
-        logInfo(response.data.toString());
         String res = response.data['choices'][0]['message']['content'];
         List<dynamic> jsonData = json.decode(res.replaceAll("json", "").replaceAll("```", "").toString());
         return jsonData.map((data) => QuizModel.fromJson(data)).toList();

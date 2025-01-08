@@ -59,7 +59,7 @@ class AttemptQuizScreen extends StatelessWidget {
                             height: h(75),
                           ),
                           Text(
-                            'Hang tight!\nwe’re putting together your Flashcard.',
+                            'Hang tight!\nwe’re putting together your Quiz.',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),

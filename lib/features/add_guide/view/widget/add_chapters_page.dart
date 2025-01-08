@@ -48,6 +48,7 @@ class AddChaptersPage extends StatelessWidget {
                       ),
                       height: h(50),
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         if (provider.chapters.any((e) =>
                             e.controller.text.isEmpty || e.content == '')) {
                           showWarningToast(

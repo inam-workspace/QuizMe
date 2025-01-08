@@ -1,7 +1,8 @@
-import 'package:quiz_me/utils/guide_details/logic/entities/chapter_details_entity.dart';
-import 'package:quiz_me/utils/guide_details/logic/entities/icon_details_entity.dart';
+import 'package:quiz_me/features/add_guide/logic/entities/chapter_details_entity.dart';
+import 'package:quiz_me/features/add_guide/logic/entities/icon_details_entity.dart';
 
 class GuideDetailsEntity {
+  final String authId;
   final String guideTitle;
   final List<ChapterDetailsEntity> chaptersDetail;
   final IconDetailsEntity iconDetails;
@@ -11,6 +12,7 @@ class GuideDetailsEntity {
   double overallPercentage;
 
   GuideDetailsEntity({
+    required this.authId,
     required this.guideTitle,
     required this.chaptersDetail,
     required this.iconDetails,
@@ -22,6 +24,7 @@ class GuideDetailsEntity {
 
   Map toJson() {
     return {
+      "auth_id": authId,
       "guide_title": guideTitle,
       "chapters_detail":
           List<dynamic>.from(chaptersDetail.map((x) => x.toJson())),
@@ -35,6 +38,7 @@ class GuideDetailsEntity {
 
   static GuideDetailsEntity fromJson(Map json) {
     return GuideDetailsEntity(
+      authId: json['auth_id'] as String,
       guideTitle: json['guide_title'] as String,
       chaptersDetail: List<ChapterDetailsEntity>.from(
           json["chapters_detail"].map((x) => ChapterDetailsEntity.fromJson(x))),

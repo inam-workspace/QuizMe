@@ -96,28 +96,31 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: gapSymmetric(horizontal: 20),
-                      child:  provider.isLoading
+                      child: provider.isLoading
                           ? Image.asset(
                               'assets/animation/loading.gif',
-                             height: h(50),
+                              height: h(50),
                             )
                           : CustomButton(
-                        width: double.infinity,
-                        borderRadius: 10,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        widget: Text(
-                          'Verify',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                              width: double.infinity,
+                              borderRadius: 10,
+                              backgroundColor: Theme.of(context).primaryColor,
+                              widget: Text(
+                                'Verify',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
                               ),
-                        ),
-                        height: h(50),
-                        onPressed: () => provider.verify(),
-                      ),
+                              height: h(50),
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                provider.verify();
+                              },
+                            ),
                     ),
                   ],
                 ),

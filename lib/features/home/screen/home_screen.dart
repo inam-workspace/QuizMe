@@ -9,9 +9,9 @@ class HomeScreen extends StatelessWidget {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
-    final streakModel = AppController.instance.streakModel;
-    return Consumer<AddGuideProvider>(
-      builder: (context, provider, child) {
+    return Consumer2<AddGuideProvider, AppController>(
+      builder: (context, provider, appProvider, child) {
+        final streakModel = appProvider.streakModel;
         return Column(
           children: [
             AppBar(

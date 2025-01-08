@@ -3,21 +3,24 @@ import 'package:quiz_me/main/imports.dart';
 @HiveType(typeId: 0)
 class GuideDetailsModel extends HiveObject {
   @HiveField(0)
-  final String guideTitle;
+  final String authId;
   @HiveField(1)
-  final List<ChapterDetailsEntity> chaptersDetail;
+  final String guideTitle;
   @HiveField(2)
-  final IconDetailsEntity iconDetails;
+  final List<ChapterDetailsEntity> chaptersDetail;
   @HiveField(3)
-  final DateTime dateTime;
+  final IconDetailsEntity iconDetails;
   @HiveField(4)
-  final double quizPercentage;
+  final DateTime dateTime;
   @HiveField(5)
-  final double mockPercentage;
+  final double quizPercentage;
   @HiveField(6)
+  final double mockPercentage;
+  @HiveField(7)
   final double overallPercentage;
 
   GuideDetailsModel({
+    required this.authId,
     required this.guideTitle,
     required this.chaptersDetail,
     required this.iconDetails,
@@ -29,6 +32,7 @@ class GuideDetailsModel extends HiveObject {
 
   Map toJson() {
     return {
+      "auth_id": authId,
       "guide_title": guideTitle,
       "chapters_detail":
           List<dynamic>.from(chaptersDetail.map((x) => x.toJson())),
@@ -42,6 +46,7 @@ class GuideDetailsModel extends HiveObject {
 
   static GuideDetailsModel fromJson(Map json) {
     return GuideDetailsModel(
+      authId: json['auth_id'],
       guideTitle: json['guide_title'],
       chaptersDetail: List<ChapterDetailsEntity>.from(
           json["chapters_detail"].map((x) => ChapterDetailsEntity.fromJson(x))),
@@ -61,6 +66,7 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
   @override
   void write(BinaryWriter writer, GuideDetailsModel obj) {
     writer.writeMap({
+      "auth_id": obj.authId,
       "guide_title": obj.guideTitle,
       "chapters_detail":
           List<dynamic>.from(obj.chaptersDetail.map((x) => x.toJson())),
@@ -75,6 +81,8 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
   @override
   GuideDetailsModel read(BinaryReader reader) {
     Map data = reader.readMap();
+
+    final authId = data['auth_id'];
     final guideTitle = data['guide_title'];
     final chaptersDetail = List<ChapterDetailsEntity>.from(
         data['chapters_detail'].map((x) => ChapterDetailsEntity.fromJson(x)));
@@ -85,6 +93,7 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
     final overallPercentage = data['overall_percentage'];
 
     return GuideDetailsModel(
+      authId: authId,
       guideTitle: guideTitle,
       chaptersDetail: chaptersDetail,
       iconDetails: iconDetails,

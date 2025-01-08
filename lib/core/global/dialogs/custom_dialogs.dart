@@ -50,7 +50,7 @@ showProcessingDialog() {
           backgroundColor: Colors.transparent,
           clipBehavior: Clip.hardEdge,
           child: PopScope(
-            canPop: false,
+            canPop: true,
             child: Padding(
               padding: gapAll(12),
               child: Image.asset(

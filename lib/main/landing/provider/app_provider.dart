@@ -1,7 +1,7 @@
 import 'package:quiz_me/main/imports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppController {
+class AppController extends ChangeNotifier {
   static AppController instance = AppController._();
 
   factory AppController() {
@@ -15,10 +15,20 @@ class AppController {
     _authDetails = details;
   }
 
+  set setAndNotifyAuthDetails(AuthModel details) {
+    _authDetails = details;
+    notifyListeners();
+  }
+
   StreakModel? _streakModel;
   StreakModel? get streakModel => _streakModel;
   set setStreakModel(StreakModel? details) {
     _streakModel = details;
+  }
+
+  set setAndNotifyStreakModel(StreakModel? details) {
+    _streakModel = details;
+    notifyListeners();
   }
 
   User? _currentUser;
@@ -54,15 +64,17 @@ class AppController {
     );
   }
 
-  Future getUserStreak(String id) async {
+  Future getUserStreak(String id, {bool notify = false}) async {
     final result = await GetAuth.instance.getUserStreak(id);
     result.fold(
       (fail) {
         logError(fail.errorMessage);
         setStreakModel = null;
+        if (notify) notifyListeners();
       },
       (model) {
         setStreakModel = model;
+        if (notify) notifyListeners();
         DateTime today = DateTime.now();
         if (model == null) {
           StreakModel newStreak = StreakModel(streak: 1, lastLoginDate: today);

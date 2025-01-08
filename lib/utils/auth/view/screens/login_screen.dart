@@ -181,6 +181,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                     height: h(50),
                                     onPressed: () {
+                                      FocusScope.of(context).unfocus();
                                       provider.loginWithEmail();
                                     },
                                   ),

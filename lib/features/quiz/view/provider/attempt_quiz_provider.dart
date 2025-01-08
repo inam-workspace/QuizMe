@@ -58,6 +58,10 @@ class AttemptQuizProvider extends ChangeNotifier {
   }
 
   next() {
+    if(selectedAnswers[currentIndex] == ''){
+      showWarningToast('Alert!!!', 'Please must select one of the option');
+      return;
+    }
     if (currentIndex == results.length - 1) {
       calculateScore();
       if (reviewMode == false) updateQuizScore();
@@ -106,8 +110,9 @@ class AttemptQuizProvider extends ChangeNotifier {
       setFailure = fail;
     }, (result) {
       setResults = result;
-      setSelectedAnswers =
-          result.map((q) => q.options.first as String).toList();
+      setSelectedAnswers = List.generate(result.length, (index) {
+        return '';
+      });
     });
   }
 
@@ -182,7 +187,7 @@ $content
     currentScore += chapterContribution;
     guideDetails.quizPercentage = currentScore;
     guideDetails.quizPercentage = currentScore;
-    guideDetails.overallPercentage = currentScore + mockPercentage;
+    guideDetails.overallPercentage = (currentScore + mockPercentage) / 2;
     guideProvider.update(guideDetails);
   }
 }

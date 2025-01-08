@@ -1,6 +1,6 @@
 import 'package:quiz_me/main/imports.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 abstract class AuthDataSource {
   Future<AuthModel> signInWithGoogle();
@@ -78,9 +78,31 @@ class AuthSource implements AuthDataSource {
   }
 
   @override
-  signInWithApple() {
+  signInWithApple() async {
     try {
-      throw UnimplementedError();
+      final result = await TheAppleSignIn.performRequests([
+        const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
+      final credential = result.credential!;
+      final oAuthProvider = OAuthProvider('apple.com');
+      final authCredential = oAuthProvider.credential(
+          idToken: String.fromCharCodes(credential.identityToken!),
+          accessToken: String.fromCharCodes(credential.authorizationCode!));
+      final userCredential = await _auth.signInWithCredential(authCredential);
+      final User? user = userCredential.user;
+      String id = user!.uid;
+      await _firestore.collection('users').doc(id).set({
+        'username': user.displayName,
+        'email': user.email,
+        'imageUrl': user.photoURL,
+        'study_guides': []
+      });
+      return AuthModel(
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      );
     } on FireException {
       throw FireException();
     }
@@ -96,12 +118,15 @@ class AuthSource implements AuthDataSource {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final user = (await _auth.signInWithCredential(credential)).user;
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+      final User? user = userCredential.user;
       String id = user!.uid;
       await _firestore.collection('users').doc(id).set({
         'username': user.displayName,
         'email': user.email,
         'imageUrl': user.photoURL,
+        'study_guides': []
       });
       return AuthModel(
         uid: user.uid,
@@ -127,6 +152,7 @@ class AuthSource implements AuthDataSource {
         'username': username,
         'email': email,
         'imageUrl': '',
+        'study_guides': []
       });
       return AuthModel(
         uid: user.uid,
@@ -181,6 +207,7 @@ class AuthSource implements AuthDataSource {
         email: data['email'],
         displayName: data['username'],
         photoURL: data['imageUrl'],
+        studyGuides: data['study_guides'],
       );
     } on FireException {
       throw FireException();

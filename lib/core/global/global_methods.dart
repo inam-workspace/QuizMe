@@ -5,11 +5,11 @@ showWarningToast(String title, String message) {
   toastification.show(
     context: context,
     type: ToastificationType.warning,
-    style: ToastificationStyle.minimal,
-    autoCloseDuration: const Duration(seconds: 3),
+    style: ToastificationStyle.flatColored,
+    autoCloseDuration: const Duration(seconds: 2),
     title: Text(title),
     description: Text(message),
-    alignment: Alignment.bottomLeft,
+    alignment: Alignment.topCenter,
     animationDuration: const Duration(milliseconds: 300),
     icon: Text(
       '⚠️',
@@ -24,7 +24,7 @@ showWarningToast(String title, String message) {
     borderRadius: BorderRadius.circular(10),
     showProgressBar: false,
     dragToClose: true,
-    applyBlurEffect: true,
+    applyBlurEffect: false,
   );
 }
 
@@ -33,7 +33,7 @@ showSuccessToast(String title, String message) {
   toastification.show(
     context: context,
     type: ToastificationType.success,
-    style: ToastificationStyle.minimal,
+    style: ToastificationStyle.flatColored,
     autoCloseDuration: const Duration(seconds: 3),
     title: Text(title),
     description: Text(message),
@@ -52,7 +52,7 @@ showSuccessToast(String title, String message) {
     borderRadius: BorderRadius.circular(10),
     showProgressBar: false,
     dragToClose: true,
-    applyBlurEffect: true,
+    applyBlurEffect: false,
   );
 }
 

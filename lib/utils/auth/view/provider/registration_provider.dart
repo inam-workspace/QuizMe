@@ -53,7 +53,9 @@ class RegistrationProvider extends ChangeNotifier {
         setFailure = fail;
       },
       (authModel) async {
-        AppController.instance.setAuthDetails = authModel;
+        final appProvider =
+            Provider.of<AppController>(Push.context, listen: false);
+        appProvider.setAndNotifyAuthDetails = authModel;
         await AppController.instance.getUserStreak(authModel.uid!);
         setIsLoading = false;
         Push.replace(route: '/dashboardScreen');

@@ -2,68 +2,90 @@ import 'package:quiz_me/main/imports.dart';
 import 'package:xml/xml.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-const cachedGuideDetails = 'GUIDE_DETAILS';
+abstract class GuideDetailsRemoteSource {
+  Future<void> addGuideDetail(
+      {required GuideDetailsEntity data, required String id});
 
-abstract class GuideDetailsDataSource {
-  Future<void> addGuideDetail({required GuideDetailsEntity data});
+  Future<List<GuideDetailsModel>> getGuideDetail({required String id});
 
-  Future<List<GuideDetailsModel>> getGuideDetail();
+  Future<void> updateGuideDetail(
+      {required GuideDetailsEntity data, required String id});
 
-  Future<void> updateGuideDetail({required GuideDetailsEntity data});
+  Future<void> deleteGuideDetail(
+      {required GuideDetailsEntity data, required String id});
 
-  Future<void> deleteGuideDetail({required GuideDetailsEntity data});
-
-  Future<String> preProcessContent(
-      {required String content, required ChapterType type});
+  Future<String> preProcessContent({
+    required String content,
+    required ChapterType type,
+  });
 }
 
-class GuideDetailsSourceImpl implements GuideDetailsDataSource {
+class GuideDetailsRemoteSourceImpl implements GuideDetailsRemoteSource {
+  final _collection = FirebaseFirestore.instance.collection('users');
   final dio = Dio();
-  final box = Hive.box<GuideDetailsModel>(cachedGuideDetails);
 
   @override
-  addGuideDetail({required GuideDetailsEntity data}) {
+  addGuideDetail({required GuideDetailsEntity data, required String id}) async {
     try {
-      return box.add(GuideDetailsModel.fromJson(data.toJson()));
-    } on CacheFailure {
-      throw CacheException();
+      final currentList = await getGuideDetail(id: id);
+      currentList.add(GuideDetailsModel.fromJson(data.toJson()));
+
+      await _collection.doc(id).update(
+          {'study_guides': currentList.map((item) => item.toJson()).toList()});
+    } on Exception {
+      throw FireException();
     }
   }
 
   @override
-  deleteGuideDetail({required GuideDetailsEntity data}) async {
+  deleteGuideDetail({
+    required GuideDetailsEntity data,
+    required String id,
+  }) async {
     try {
-      final key =
-          box.values.firstWhere((value) => data.dateTime == value.dateTime).key;
-      box.delete(key);
-    } on CacheFailure {
-      throw CacheException();
+      final currentList = await getGuideDetail(id: id);
+      currentList.removeWhere((item) => item.dateTime == data.dateTime);
+      await _collection.doc(id).update({'study_guides': currentList.map((item) => item.toJson()).toList()});
+    } on Exception {
+      throw FireException();
     }
   }
 
   @override
-  getGuideDetail() async {
+  getGuideDetail({required String id}) async {
     try {
-      return box.values.toList();
-    } on CacheFailure {
-      throw CacheException();
+      DocumentSnapshot docSnapshot = await _collection.doc(id).get();
+      if (docSnapshot.exists) {
+        List<dynamic> data = docSnapshot['study_guides'] ?? [];
+        if (data.isEmpty) return [];
+        return data.map((item) => GuideDetailsModel.fromJson(item)).toList();
+      } else {
+        return [];
+      }
+    } on Exception {
+      throw FireException();
     }
   }
 
   @override
-  updateGuideDetail({required GuideDetailsEntity data}) async {
+  updateGuideDetail({
+    required GuideDetailsEntity data,
+    required String id,
+  }) async {
     try {
-      final key =
-          box.values.firstWhere((value) => data.dateTime == value.dateTime).key;
-      box.put(key, GuideDetailsModel.fromJson(data.toJson()));
-    } on CacheFailure {
-      throw CacheException();
+      final currentList = await getGuideDetail(id: id);
+      currentList.add(GuideDetailsModel.fromJson(data.toJson()));
+      await _collection.doc(id).update({'study_guides': currentList.map((item) => item.toJson()).toList()});
+    } on Exception {
+      throw FireException();
     }
   }
 
   @override
-  preProcessContent(
-      {required String content, required ChapterType type}) async {
+  preProcessContent({
+    required String content,
+    required ChapterType type,
+  }) async {
     try {
       String extractedConetent = '';
       if (type == ChapterType.link) {
@@ -105,10 +127,12 @@ class GuideDetailsSourceImpl implements GuideDetailsDataSource {
                 .trim();
         return responseText.toString();
       } else {
-        throw ServerException();
+        throw Exception();
       }
     } on DioException catch (e) {
       logInfo(e.toString());
+      throw ServerException();
+    } on Exception {
       throw ServerException();
     }
   }
@@ -137,10 +161,12 @@ class GuideDetailsSourceImpl implements GuideDetailsDataSource {
             final document = XmlDocument.parse(bookshelfXml);
             return document.innerText.toString();
           } else {
-            throw ServerException();
+            throw Exception();
           }
         } on DioException catch (e) {
           logError(e.toString());
+          throw ServerException();
+        } on Exception {
           throw ServerException();
         }
       },
