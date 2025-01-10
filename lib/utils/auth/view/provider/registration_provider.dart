@@ -59,7 +59,6 @@ class RegistrationProvider extends ChangeNotifier {
           if (user != null) {
             appProvider.setAndNotifyCurrentUser = user;
             appProvider.setAndNotifyAuthDetails = authModel;
-
             await AppController.instance.getUserStreak(
               user.uid,
               notify: true,

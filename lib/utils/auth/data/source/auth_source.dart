@@ -30,6 +30,8 @@ abstract class AuthDataSource {
 class AuthSource implements AuthDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _collection = FirebaseFirestore.instance.collection('users');
+  final _streakCollection =
+      FirebaseFirestore.instance.collection('users_streak');
   final FirebaseStorage _storage = FirebaseStorage.instance;
   @override
   loginWithEmail(String email, String password) async {
@@ -234,7 +236,7 @@ class AuthSource implements AuthDataSource {
   @override
   getUserStreak(String id) async {
     try {
-      DocumentSnapshot doc = await _collection.doc(id).get();
+      DocumentSnapshot doc = await _streakCollection.doc(id).get();
       if (doc.exists) {
         return StreakModel.fromMap(doc.data() as Map<String, dynamic>);
       }
@@ -247,7 +249,7 @@ class AuthSource implements AuthDataSource {
   @override
   updateUserStreak(String id, StreakModel streakData) async {
     try {
-      await _collection.doc(id).set(streakData.toMap());
+      await _streakCollection.doc(id).set(streakData.toMap());
     } on FireException {
       throw FireException();
     }
