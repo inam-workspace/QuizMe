@@ -49,7 +49,6 @@ class AuthSource implements AuthDataSource {
         email: data['email'],
         displayName: data['username'],
         photoURL: data['imageUrl'],
-        studyGuides: data['study_guides'],
       );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -226,7 +225,6 @@ class AuthSource implements AuthDataSource {
         email: data['email'],
         displayName: data['username'],
         photoURL: data['imageUrl'],
-        studyGuides: data['study_guides'],
       );
     } on FireException {
       throw FireException();

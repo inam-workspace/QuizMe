@@ -43,19 +43,15 @@ class GuideDetailsRepoImpl implements GuideDetailsRepo {
   @override
   getGuideDetail({required String id}) async {
     try {
-      if (appProvider.authDetails.studyGuides != null &&
-          appProvider.authDetails.studyGuides!.isNotEmpty) {
-        for (var element in appProvider.authDetails.studyGuides!) {
-          _localDataSource.addGuideDetail(
-              data: GuideDetailsEntity.fromJson(element));
-        }
+      if (_localDataSource.containsData(id: id)) {
         return Right(await _localDataSource.getGuideDetail());
       } else {
-        if (_localDataSource.containsData(id: id)) {
-          return Right(await _localDataSource.getGuideDetail());
-        } else {
-          return Right(await _remoteDataSource.getGuideDetail(id: id));
+        final data = await _remoteDataSource.getGuideDetail(id: id);
+        for (var element in data) {
+          _localDataSource.addGuideDetail(
+              data: GuideDetailsEntity.fromJson(element.toJson()));
         }
+        return Right(data);
       }
     } on CacheException {
       return Left(CacheFailure(errorType: ErrorType.cache));

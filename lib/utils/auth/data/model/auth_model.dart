@@ -3,14 +3,12 @@ class AuthModel {
   final String? email;
   final String? displayName;
   final String? photoURL;
-  final List<dynamic>? studyGuides;
 
   const AuthModel({
     this.uid,
     this.email,
     this.displayName,
     this.photoURL,
-    this.studyGuides,
   });
 
   Map<String, Object?> toJson() {
@@ -19,7 +17,6 @@ class AuthModel {
       'email': email,
       'displayName': displayName,
       'photoURL': photoURL,
-      'study_guides': studyGuides,
     };
   }
 
@@ -30,9 +27,6 @@ class AuthModel {
       displayName:
           json['displayName'] == null ? null : json['displayName'] as String,
       photoURL: json['photoURL'] == null ? null : json['photoURL'] as String,
-      studyGuides: json['study_guides'] == null
-          ? null
-          : json['study_guides'] as List<dynamic>,
     );
   }
 }
