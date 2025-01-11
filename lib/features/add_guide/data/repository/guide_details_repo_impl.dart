@@ -28,9 +28,7 @@ class GuideDetailsRepoImpl implements GuideDetailsRepo {
   deleteGuideDetail(
       {required GuideDetailsEntity data, required String id}) async {
     try {
-      if (_localDataSource.containsData(id: id)) {
-        _localDataSource.deleteGuideDetail(data: data);
-      }
+      _localDataSource.deleteGuideDetail(data: data);
       return Right(
           await _remoteDataSource.deleteGuideDetail(data: data, id: id));
     } on CacheException {
@@ -64,11 +62,7 @@ class GuideDetailsRepoImpl implements GuideDetailsRepo {
   updateGuideDetail(
       {required GuideDetailsEntity data, required String id}) async {
     try {
-      if (_localDataSource.containsData(id: id)) {
-        _localDataSource.updateGuideDetail(data: data);
-      } else {
-        _localDataSource.addGuideDetail(data: data);
-      }
+      _localDataSource.updateGuideDetail(data: data);
       return Right(
           await _remoteDataSource.updateGuideDetail(data: data, id: id));
     } on CacheException {

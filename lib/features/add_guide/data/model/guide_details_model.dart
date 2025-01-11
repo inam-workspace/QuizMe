@@ -52,9 +52,9 @@ class GuideDetailsModel extends HiveObject {
           json["chapters_detail"].map((x) => ChapterDetailsEntity.fromJson(x))),
       iconDetails: IconDetailsEntity.fromJson(json["icon_details"]),
       dateTime: json['date_time'],
-      quizPercentage: json['quiz_percentage'],
-      mockPercentage: json['mock_percentage'],
-      overallPercentage: json['overall_percentage'],
+      quizPercentage: json['quiz_percentage'].toDouble(),
+      mockPercentage: json['mock_percentage'].toDouble(),
+      overallPercentage: json['overall_percentage'].toDouble(),
     );
   }
 }
@@ -88,9 +88,9 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
         data['chapters_detail'].map((x) => ChapterDetailsEntity.fromJson(x)));
     final iconDetails = IconDetailsEntity.fromJson(data["icon_details"]);
     final dateTime = data['date_time'];
-    final quizPercentage = data['quiz_percentage'];
-    final mockPercentage = data['mock_percentage'];
-    final overallPercentage = data['overall_percentage'];
+    final quizPercentage = data['quiz_percentage'].toDouble();
+    final mockPercentage = data['mock_percentage'].toDouble();
+    final overallPercentage = data['overall_percentage'].toDouble();
 
     return GuideDetailsModel(
       authId: authId,

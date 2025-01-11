@@ -73,10 +73,7 @@ class GuideDetailsRemoteSourceImpl implements GuideDetailsRemoteSource {
     required String id,
   }) async {
     try {
-      final currentList = await getGuideDetail(id: id);
-      currentList.add(GuideDetailsModel.fromJson(data.toJson()));
-      await _collection.doc(id).update(
-          {'study_guides': currentList.map((item) => item.toJson()).toList()});
+      await _collection.doc(id).update({'study_guides': data.toJson()});
     } on Exception {
       throw FireException();
     }
