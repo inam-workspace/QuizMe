@@ -118,7 +118,10 @@ class AuthSource implements AuthDataSource {
   @override
   signInWithGoogle() async {
     try {
-      final googleUser = await GoogleSignIn().signIn();
+      final googleUser = await GoogleSignIn(
+        clientId:
+            '122434148246-fgbkq6fejrl21lvrejkgh3722oe2gls8.apps.googleusercontent.com',
+      ).signIn();
       if (googleUser == null) throw FireException();
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(

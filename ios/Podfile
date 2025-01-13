@@ -32,6 +32,13 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
+  pod 'GTMSessionFetcher', :modular_headers => true
+  pod 'GoogleSignIn', '~> 7.1'
+  pod 'GoogleMLKit/TextRecognitionChinese', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionDevanagari', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionJapanese', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionKorean', '~> 7.0.0'
+  pod 'Firebase/Storage', '~> 11.0'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
@@ -58,8 +65,3 @@ post_install do |installer|
   end
 end
 
-
-pod 'GoogleMLKit/TextRecognitionChinese', '~> 7.0.0'
-pod 'GoogleMLKit/TextRecognitionDevanagari', '~> 7.0.0'
-pod 'GoogleMLKit/TextRecognitionJapanese', '~> 7.0.0'
-pod 'GoogleMLKit/TextRecognitionKorean', '~> 7.0.0'

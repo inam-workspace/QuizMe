@@ -1499,6 +1499,7 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - Firebase/Storage (~> 11.0)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
@@ -1510,6 +1511,8 @@ DEPENDENCIES:
   - GoogleMLKit/TextRecognitionDevanagari (~> 7.0.0)
   - GoogleMLKit/TextRecognitionJapanese (~> 7.0.0)
   - GoogleMLKit/TextRecognitionKorean (~> 7.0.0)
+  - GoogleSignIn (~> 7.1)
+  - GTMSessionFetcher
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -1648,6 +1651,6 @@ SPEC CHECKSUMS:
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   the_apple_sign_in: 2e78c83cdb09eba07bb16dcc1f3bc12fcdc8263d
 
-PODFILE CHECKSUM: 6a8cfb1571959c8f252c963b82f0851e2e4e3320
+PODFILE CHECKSUM: 07077ea94ad4283099b9a1bb988c082075ae08d6
 
 COCOAPODS: 1.16.2

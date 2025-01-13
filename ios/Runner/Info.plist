@@ -49,5 +49,18 @@
 	<string>We need access to your photo library to select images.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to capture images.</string>
+	<key>GIDClientID</key>
+	<string>122434148246-fgbkq6fejrl21lvrejkgh3722oe2gls8.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.122434148246-fgbkq6fejrl21lvrejkgh3722oe2gls8</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
