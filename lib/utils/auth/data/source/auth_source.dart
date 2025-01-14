@@ -18,6 +18,8 @@ abstract class AuthDataSource {
 
   Future<User?> checkAuthState();
 
+  Future<void> deleteAccount();
+
   Future<void> updateProfileImage(String id, Uint8List image);
 
   Future<AuthModel> getAuthDetails(String id);
@@ -163,10 +165,9 @@ class AuthSource implements AuthDataSource {
       ))
           .user;
       String id = user!.uid;
-
       DocumentSnapshot doc = await _collection.doc(id).get();
       if (doc.exists) {
-        return getAuthDetails(id);
+        return await getAuthDetails(id);
       } else {
         await _collection.doc(id).set({
           'username': username,
@@ -175,7 +176,7 @@ class AuthSource implements AuthDataSource {
           'study_guides': []
         });
         return AuthModel(
-          uid: user.uid,
+          uid: id,
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
@@ -251,6 +252,18 @@ class AuthSource implements AuthDataSource {
   updateUserStreak(String id, StreakModel streakData) async {
     try {
       await _streakCollection.doc(id).set(streakData.toMap());
+    } on FireException {
+      throw FireException();
+    }
+  }
+
+  @override
+  deleteAccount() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      await _collection.doc(user!.uid).delete();
+      await user.delete();
+      await FirebaseAuth.instance.signOut();
     } on FireException {
       throw FireException();
     }

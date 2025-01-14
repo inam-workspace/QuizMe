@@ -23,6 +23,7 @@ export 'package:docx_to_text/docx_to_text.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 export 'package:flutter_markdown/flutter_markdown.dart';
+export 'package:url_launcher/url_launcher.dart';
 
 //Flutter
 export 'package:flutter/material.dart';

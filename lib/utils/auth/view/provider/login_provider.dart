@@ -9,13 +9,6 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  set setIsLoading(bool status) {
-    _isLoading = status;
-    notifyListeners();
-  }
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _showPassword = false;
@@ -31,11 +24,11 @@ class LoginProvider extends ChangeNotifier {
     final password = passwordController.text;
     validateEmail(email);
     validatePassword(password);
-    setIsLoading = true;
+    showLoadingIndicator('Verifing your credentials');
     final result = await GetAuth.instance.loginWithEmail(email, password);
     result.fold(
       (fail) {
-        setIsLoading = false;
+        Push.back();
         setFailure = fail;
       },
       (authModel) async {
@@ -50,7 +43,7 @@ class LoginProvider extends ChangeNotifier {
                 user.uid,
                 notify: true,
               );
-              setIsLoading = false;
+              Push.back();
               Push.replace(route: '/dashboardScreen');
             }
           },

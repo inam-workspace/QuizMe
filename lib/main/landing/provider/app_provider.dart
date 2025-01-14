@@ -77,13 +77,13 @@ class AppController extends ChangeNotifier {
         setStreakModel = null;
         if (notify) notifyListeners();
       },
-      (model) {
+      (model) async {
         setStreakModel = model;
         if (notify) notifyListeners();
         DateTime today = DateTime.now();
         if (model == null) {
           StreakModel newStreak = StreakModel(streak: 1, lastLoginDate: today);
-          GetAuth.instance.updateUserStreak(id, newStreak);
+          await GetAuth.instance.updateUserStreak(id, newStreak);
           return;
         }
         DateTime lastLogin = model.lastLoginDate;
@@ -93,13 +93,13 @@ class AppController extends ChangeNotifier {
             streak: model.streak + 1,
             lastLoginDate: today,
           );
-          GetAuth.instance.updateUserStreak(id, updatedStreak);
+          await GetAuth.instance.updateUserStreak(id, updatedStreak);
         } else if (diff.inDays > 1) {
           StreakModel resetStreak = StreakModel(
             streak: 1,
             lastLoginDate: today,
           );
-          GetAuth.instance.updateUserStreak(id, resetStreak);
+          await GetAuth.instance.updateUserStreak(id, resetStreak);
         }
       },
     );

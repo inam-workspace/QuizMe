@@ -64,3 +64,63 @@ showProcessingDialog() {
     },
   );
 }
+
+void showLoadingIndicator(String text) {
+  showDialog(
+    context: Push.context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return PopScope(
+        canPop: false,
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.0),
+            ),
+          ),
+          backgroundColor: Colors.black.withOpacity(0.75),
+          content: Container(
+            padding: gapAll(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [_getLoadingIndicator(), _getHeading(), _getText(text)],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget _getLoadingIndicator() {
+  return Padding(
+    padding: gapOnly(bottom: 16),
+    child: SizedBox(
+      width: h(32),
+      height: h(32),
+      child: Platform.isAndroid
+          ? CircularProgressIndicator(strokeWidth: w(3))
+          : CupertinoActivityIndicator(),
+    ),
+  );
+}
+
+Widget _getHeading() {
+  return Padding(
+    padding: EdgeInsets.only(bottom: 4),
+    child: Text(
+      'Please wait …',
+      style: TextStyle(color: Colors.white, fontSize: 16),
+      textAlign: TextAlign.center,
+    ),
+  );
+}
+
+Widget _getText(String displayedText) {
+  return Text(
+    displayedText,
+    style: TextStyle(color: Colors.white, fontSize: 14),
+    textAlign: TextAlign.center,
+  );
+}

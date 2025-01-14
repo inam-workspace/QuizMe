@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:122434148246:android:64f89fd7059d7b3010efb7",
+        "mobilesdk_app_id": "1:122434148246:android:61a1942aeeb4e21310efb7",
         "android_client_info": {
-          "package_name": "com.example.quizme"
+          "package_name": "com.praidux.quizme"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "122434148246-redinimjk1lrp5l3b7v4lsjnvlqahakh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.quizme",
-            "certificate_hash": "5332ea59b98096225896e10390fc083c7476208b"
-          }
-        },
         {
           "client_id": "122434148246-85h8cgn0beavk09jrc2ldn66edfu1o29.apps.googleusercontent.com",
           "client_type": 3

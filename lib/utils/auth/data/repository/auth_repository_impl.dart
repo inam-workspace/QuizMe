@@ -98,4 +98,13 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(FireFailure(errorType: ErrorType.firebase));
     }
   }
+
+  @override
+  deleteAccount() async {
+    try {
+      return Right(await remoteDataSource.deleteAccount());
+    } on FireException {
+      return Left(FireFailure(errorType: ErrorType.firebase));
+    }
+  }
 }

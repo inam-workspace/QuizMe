@@ -43,79 +43,76 @@ class DashboardScreen extends StatelessWidget {
                     return pages[index];
                   },
                 ),
-                bottomNavigationBar: SizedBox(
-                  height: h(60),
-                  child: BottomNavigationBar(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    currentIndex: provider.currentIndex,
-                    onTap: (value) => provider.setCurrentIndex = value,
-                    type: BottomNavigationBarType.fixed,
-                    selectedFontSize: t(10),
-                    unselectedFontSize: t(10),
-                    elevation: 15,
-                    iconSize: h(24),
-                    selectedItemColor: Theme.of(context).primaryColor,
-                    unselectedItemColor: Theme.of(context).hintColor,
-                    selectedLabelStyle: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      height: h(1.6),
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      height: h(1.6),
-                    ),
-                    showUnselectedLabels: true,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/icons/home.svg',
-                          colorFilter: ColorFilter.mode(
-                            provider.currentIndex == 0
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).hintColor,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/icons/guide.svg',
-                          colorFilter: ColorFilter.mode(
-                            provider.currentIndex == 1
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).hintColor,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        label: 'Guide',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/icons/quiz.svg',
-                          colorFilter: ColorFilter.mode(
-                            provider.currentIndex == 2
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).hintColor,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        label: 'Quiz',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          'assets/icons/test.svg',
-                          colorFilter: ColorFilter.mode(
-                            provider.currentIndex == 3
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).hintColor,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        label: 'Test',
-                      ),
-                    ],
+                bottomNavigationBar: BottomNavigationBar(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  currentIndex: provider.currentIndex,
+                  onTap: (value) => provider.setCurrentIndex = value,
+                  type: BottomNavigationBarType.fixed,
+                  selectedFontSize: t(10),
+                  unselectedFontSize: t(10),
+                  elevation: 15,
+                  iconSize: h(24),
+                  selectedItemColor: Theme.of(context).primaryColor,
+                  unselectedItemColor: Theme.of(context).hintColor,
+                  selectedLabelStyle: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    height: h(1.6),
                   ),
+                  unselectedLabelStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    height: h(1.6),
+                  ),
+                  showUnselectedLabels: true,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/icons/home.svg',
+                        colorFilter: ColorFilter.mode(
+                          provider.currentIndex == 0
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).hintColor,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/icons/guide.svg',
+                        colorFilter: ColorFilter.mode(
+                          provider.currentIndex == 1
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).hintColor,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Guide',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/icons/quiz.svg',
+                        colorFilter: ColorFilter.mode(
+                          provider.currentIndex == 2
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).hintColor,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Quiz',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/icons/test.svg',
+                        colorFilter: ColorFilter.mode(
+                          provider.currentIndex == 3
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).hintColor,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Test',
+                    ),
+                  ],
                 ),
               ),
             );

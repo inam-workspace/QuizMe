@@ -163,9 +163,12 @@ class AuthFooter extends StatelessWidget {
   }
 
   signUpWithGmail() async {
+    showLoadingIndicator('Verifing your credentials');
     final result = await GetAuth.instance.signInWithGoogle();
     result.fold(
-      (fail) {},
+      (fail) {
+        Push.back();
+      },
       (authModel) async {
         final appProvider =
             Provider.of<AppController>(Push.context, listen: false);
@@ -177,6 +180,7 @@ class AuthFooter extends StatelessWidget {
               user.uid,
               notify: true,
             );
+            Push.back();
             Push.replace(route: '/dashboardScreen');
           }
         });
@@ -185,9 +189,12 @@ class AuthFooter extends StatelessWidget {
   }
 
   signUpWithApple() async {
+    showLoadingIndicator('Verifing your credentials');
     final result = await GetAuth.instance.signInWithApple();
     result.fold(
-      (fail) {},
+      (fail) {
+        Push.back();
+      },
       (authModel) async {
         final appProvider =
             Provider.of<AppController>(Push.context, listen: false);
@@ -199,6 +206,7 @@ class AuthFooter extends StatelessWidget {
               user.uid,
               notify: true,
             );
+            Push.back();
             Push.replace(route: '/dashboardScreen');
           }
         });

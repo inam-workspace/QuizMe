@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.quizme"
+    namespace = "com.praidux.quizme"
     compileSdk = 34
     ndkVersion = "27.0.12077973"
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.quizme"
+        applicationId = "com.praidux.quizme"
         minSdk = 23
         targetSdk = 34
         versionCode = flutter.versionCode

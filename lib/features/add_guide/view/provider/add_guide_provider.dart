@@ -266,7 +266,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   get() async {
-    final uid = AppController.instance.currentUser!.uid;
+    final uid = AppController.instance.authDetails.uid!;
     setLoading = true;
     final failureOrResult = await GetGuideDetails(repository).get(id: uid);
     failureOrResult.fold((fail) {

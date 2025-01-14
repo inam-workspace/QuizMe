@@ -59,56 +59,59 @@ class ChatScreen extends StatelessWidget {
               ),
               bottomSheet: Padding(
                 padding: gapAll(10.0),
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: TextFormField(
-                        controller: provider.controller,
-                        cursorColor: Theme.of(context).primaryColor,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          filled: true,
-                          hintText: 'Type here...',
-                          hintStyle: Theme.of(context).textTheme.labelLarge,
-                          fillColor: Theme.of(context).scaffoldBackgroundColor,
-                          border: border,
-                          enabledBorder: border,
-                          focusedBorder: border,
+                child: Padding(
+                  padding: gapOnly(bottom: 10.0),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          controller: provider.controller,
+                          cursorColor: Theme.of(context).primaryColor,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            hintText: 'Type here...',
+                            hintStyle: Theme.of(context).textTheme.labelLarge,
+                            fillColor: Theme.of(context).scaffoldBackgroundColor,
+                            border: border,
+                            enabledBorder: border,
+                            focusedBorder: border,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: w(10)),
-                    CustomButton(
-                      width: w(45),
-                      height: w(45),
-                      borderRadius: 10,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      widget: provider.isLoading
-                          ? Padding(
-                              padding: gapAll(12.0),
-                              child: CircularProgressIndicator(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                strokeWidth: w(3),
+                      SizedBox(width: w(10)),
+                      CustomButton(
+                        width: w(45),
+                        height: w(45),
+                        borderRadius: 10,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        widget: provider.isLoading
+                            ? Padding(
+                                padding: gapAll(12.0),
+                                child: CircularProgressIndicator(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  strokeWidth: w(3),
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                'assets/icons/send.svg',
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).scaffoldBackgroundColor,
+                                  BlendMode.srcIn,
+                                ),
                               ),
-                            )
-                          : SvgPicture.asset(
-                              'assets/icons/send.svg',
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).scaffoldBackgroundColor,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                      onPressed: provider.isLoading
-                          ? () {}
-                          : () {
-                              provider.getResponse(args.topic.content);
-                            },
-                    )
-                  ],
+                        onPressed: provider.isLoading
+                            ? () {}
+                            : () {
+                                provider.getResponse(args.topic.content);
+                              },
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

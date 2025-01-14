@@ -95,7 +95,7 @@ class DrawerScreen extends StatelessWidget {
                   ],
                 ),
                 Consumer<DashboardProvider>(
-                  builder: (context, provider, child) {
+                  builder: (context, dashProvider, child) {
                     return Container(
                       padding: gapSymmetric(horizontal: 16, vertical: 8),
                       margin: gapAll(16),
@@ -150,7 +150,7 @@ class DrawerScreen extends StatelessWidget {
                           ListTile(
                             contentPadding: gapZero,
                             onTap: () {
-                              provider.drawerController.hideDrawer();
+                              dashProvider.drawerController.hideDrawer();
                               Push.to(route: '/faqsScreen');
                             },
                             leading: SvgPicture.asset(
@@ -173,7 +173,10 @@ class DrawerScreen extends StatelessWidget {
                           ),
                           ListTile(
                             contentPadding: gapZero,
-                            onTap: () {},
+                            onTap: () {
+                              dashProvider.drawerController.hideDrawer();
+                              provider.privacyPolicy();
+                            },
                             leading: SvgPicture.asset(
                               'assets/icons/privacy.svg',
                               height: h(20),

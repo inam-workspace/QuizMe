@@ -9,29 +9,22 @@ class ForgetPasswordProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  set setIsLoading(bool status) {
-    _isLoading = status;
-    notifyListeners();
-  }
-
   final emailController = TextEditingController();
 
   verify() async {
     final email = emailController.text;
     validateEmail(email);
-    setIsLoading = true;
+    showLoadingIndicator('Verifing your credentials');
     final result = await GetAuth.instance.forgetPassword(email);
     result.fold(
       (fail) {
         setFailure = fail;
-        setIsLoading = false;
+        Push.back();
       },
       (authModel) {
         showSuccessToast(
             'Success!!!', 'Rest link has been sent to your email address');
-        setIsLoading = false;
+        Push.back();
       },
     );
   }

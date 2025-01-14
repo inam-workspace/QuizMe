@@ -15,6 +15,8 @@ abstract class AuthRepository {
 
   Future<Either<Failure, void>> forgetPassword(String email);
 
+  Future<Either<Failure, void>> deleteAccount();
+
   Future<Either<Failure, void>> updateProfileImage(String id, Uint8List image);
 
   Future<User?> checkAuthState();

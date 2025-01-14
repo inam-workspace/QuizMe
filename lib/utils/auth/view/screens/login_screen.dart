@@ -131,66 +131,49 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: h(275),
-                      child: provider.isLoading
-                          ? Center(
-                              child: Image.asset(
-                                'assets/animation/loading.gif',
-                                height: h(50),
-                              ),
-                            )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: gapSymmetric(horizontal: 20),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: TextButton(
-                                      onPressed: () {
-                                        Push.to(route: '/forgetPasswordScreen');
-                                      },
-                                      child: Text(
-                                        'Forgot Password?',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: gapSymmetric(horizontal: 20),
-                                  child: CustomButton(
-                                    width: double.infinity,
-                                    borderRadius: 10,
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    widget: Text(
-                                      'Login',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                          ),
-                                    ),
-                                    height: h(50),
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      provider.loginWithEmail();
-                                    },
-                                  ),
-                                ),
-                                SizedBox(height: h(20)),
-                                AuthFooter(type: FooterType.login),
-                              ],
-                            ),
+                    Padding(
+                      padding: gapSymmetric(horizontal: 20),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            Push.to(route: '/forgetPasswordScreen');
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ),
+                    Padding(
+                      padding: gapSymmetric(horizontal: 20),
+                      child: CustomButton(
+                        width: double.infinity,
+                        borderRadius: 10,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        widget: Text(
+                          'Login',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                color: Theme.of(context)
+                                    .scaffoldBackgroundColor,
+                              ),
+                        ),
+                        height: h(50),
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          provider.loginWithEmail();
+                        },
+                      ),
+                    ),
+                    SizedBox(height: h(20)),
+                    AuthFooter(type: FooterType.login),
                   ],
                 ),
               ),

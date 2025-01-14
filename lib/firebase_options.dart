@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAvCWPJUwrwuuMPiRcUYxrFxYxjc8i4G80',
-    appId: '1:122434148246:android:64f89fd7059d7b3010efb7',
+    appId: '1:122434148246:android:61a1942aeeb4e21310efb7',
     messagingSenderId: '122434148246',
     projectId: 'quizme-93173',
     storageBucket: 'quizme-93173.firebasestorage.app',
@@ -59,10 +59,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDpSr6wU6hC4xN9skqsOsaZjJsSWVSSsZM',
-    appId: '1:122434148246:ios:e23eda20e3bc8db010efb7',
+    appId: '1:122434148246:ios:90e9c909f6a5e2c310efb7',
     messagingSenderId: '122434148246',
     projectId: 'quizme-93173',
     storageBucket: 'quizme-93173.firebasestorage.app',
-    iosBundleId: 'com.example.quizMe',
+    androidClientId: '122434148246-redinimjk1lrp5l3b7v4lsjnvlqahakh.apps.googleusercontent.com',
+    iosClientId: '122434148246-ele56sjgde9dce63pevmp6dnuov8msgc.apps.googleusercontent.com',
+    iosBundleId: 'com.praidux.quizme',
   );
+
 }

@@ -35,6 +35,10 @@ class GetAuth {
     return await repository.forgetPassword(email);
   }
 
+  Future<Either<Failure, void>> deleteAccount() async {
+    return await repository.deleteAccount();
+  }
+
   Future<Either<Failure, void>> updateProfileImage(
       String id, Uint8List image) async {
     return await repository.updateProfileImage(id, image);
