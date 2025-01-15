@@ -15,8 +15,12 @@ class GuideDetailsModel extends HiveObject {
   @HiveField(5)
   final double quizPercentage;
   @HiveField(6)
-  final double mockPercentage;
+  final int quizAttempts;
   @HiveField(7)
+  final double mockPercentage;
+  @HiveField(8)
+  final int mockAttempts;
+  @HiveField(9)
   final double overallPercentage;
 
   GuideDetailsModel({
@@ -26,7 +30,9 @@ class GuideDetailsModel extends HiveObject {
     required this.iconDetails,
     required this.dateTime,
     required this.quizPercentage,
+    required this.quizAttempts,
     required this.mockPercentage,
+    required this.mockAttempts,
     required this.overallPercentage,
   });
 
@@ -39,7 +45,9 @@ class GuideDetailsModel extends HiveObject {
       "icon_details": iconDetails.toJson(),
       "date_time": dateTime,
       "quiz_percentage": quizPercentage,
+      "quiz_attempts": quizAttempts,
       "mock_percentage": mockPercentage,
+      "mock_attempts": mockAttempts,
       "overall_percentage": overallPercentage,
     };
   }
@@ -53,7 +61,9 @@ class GuideDetailsModel extends HiveObject {
       iconDetails: IconDetailsEntity.fromJson(json["icon_details"]),
       dateTime: json['date_time'],
       quizPercentage: json['quiz_percentage'].toDouble(),
+      quizAttempts: json['quiz_attempts'].toDouble(),
       mockPercentage: json['mock_percentage'].toDouble(),
+      mockAttempts: json['mock_attempts'].toDouble(),
       overallPercentage: json['overall_percentage'].toDouble(),
     );
   }
@@ -73,7 +83,9 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
       "icon_details": obj.iconDetails.toJson(),
       "date_time": obj.dateTime,
       "quiz_percentage": obj.quizPercentage,
+      "quiz_attempts": obj.quizAttempts,
       "mock_percentage": obj.mockPercentage,
+      "mock_attempts": obj.mockAttempts,
       "overall_percentage": obj.overallPercentage,
     });
   }
@@ -89,7 +101,9 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
     final iconDetails = IconDetailsEntity.fromJson(data["icon_details"]);
     final dateTime = data['date_time'];
     final quizPercentage = data['quiz_percentage'].toDouble();
+    final quizAttempts = data['quiz_attempts'].toInt();
     final mockPercentage = data['mock_percentage'].toDouble();
+    final mockAttempts = data['mock_attempts'].toInt();
     final overallPercentage = data['overall_percentage'].toDouble();
 
     return GuideDetailsModel(
@@ -99,7 +113,9 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
       iconDetails: iconDetails,
       dateTime: dateTime,
       quizPercentage: quizPercentage,
+      quizAttempts: quizAttempts,
       mockPercentage: mockPercentage,
+      mockAttempts: mockAttempts,
       overallPercentage: overallPercentage,
     );
   }

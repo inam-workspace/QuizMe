@@ -56,7 +56,8 @@ class DrawerScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: appProvider.authDetails.photoURL == ''
+                        child: appProvider.authDetails.photoURL == '' ||
+                                appProvider.authDetails.photoURL == null
                             ? Image.asset(
                                 'assets/images/placeholder.jpg',
                                 fit: BoxFit.cover,
@@ -80,6 +81,8 @@ class DrawerScreen extends StatelessWidget {
                     SizedBox(height: h(20)),
                     Text(
                       appProvider.authDetails.displayName!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).scaffoldBackgroundColor),
                     ),

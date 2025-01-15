@@ -1,7 +1,6 @@
 import 'package:quiz_me/main/imports.dart';
 
 class DrawerProvider extends ChangeNotifier {
-  final user = AppController.instance.currentUser;
   final appProvider = Provider.of<AppController>(Push.context, listen: false);
 
   uploadProfile() async {
@@ -18,13 +17,13 @@ class DrawerProvider extends ChangeNotifier {
             showLoadingIndicator('Uploading your profile picture');
             await GetAuth.instance
                 .updateProfileImage(
-              user!.uid,
+              appProvider.authDetails.uid!,
               File(filePath).readAsBytesSync(),
             )
                 .then(
               (value) async {
-                final failOrResult =
-                    await GetAuth.instance.getAuthDetails(user!.uid);
+                final failOrResult = await GetAuth.instance
+                    .getAuthDetails(appProvider.authDetails.uid!);
                 failOrResult.fold(
                   (fail) {
                     Push.back();

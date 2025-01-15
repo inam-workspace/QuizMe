@@ -178,8 +178,8 @@ class AuthSource implements AuthDataSource {
         return AuthModel(
           uid: id,
           email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
+          displayName: username,
+          photoURL: "",
         );
       }
     } on FireException {

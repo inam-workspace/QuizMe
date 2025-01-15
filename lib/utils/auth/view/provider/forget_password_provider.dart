@@ -14,7 +14,7 @@ class ForgetPasswordProvider extends ChangeNotifier {
   verify() async {
     final email = emailController.text;
     validateEmail(email);
-    showLoadingIndicator('Verifing your credentials');
+    showLoadingIndicator('while verifing your credentials');
     final result = await GetAuth.instance.forgetPassword(email);
     result.fold(
       (fail) {

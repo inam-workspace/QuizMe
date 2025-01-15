@@ -258,7 +258,9 @@ class AddGuideProvider extends ChangeNotifier {
       ),
       dateTime: DateTime.now().millisecondsSinceEpoch,
       quizPercentage: 0.0,
+      quizAttempts: 0,
       mockPercentage: 0.0,
+      mockAttempts: 0,
       overallPercentage: 0.0,
     );
     add(payload);

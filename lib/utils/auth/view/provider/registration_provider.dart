@@ -37,7 +37,7 @@ class RegistrationProvider extends ChangeNotifier {
     validateUsername(username);
     validatePassword(password);
     validateConfirmPassword(confPassword, password);
-    showLoadingIndicator('Please wait while we set up your profile');
+    showLoadingIndicator('while we set up your profile');
     final result =
         await GetAuth.instance.signUpWithEmail(username, email, password);
     result.fold(
@@ -49,9 +49,12 @@ class RegistrationProvider extends ChangeNotifier {
         final appProvider =
             Provider.of<AppController>(Push.context, listen: false);
         appProvider.setAndNotifyAuthDetails = authModel;
-        await appProvider.getUserStreak(authModel.uid!, notify: true);
-        Push.back();
-        Push.replace(route: '/dashboardScreen');
+        await appProvider
+            .getUserStreak(authModel.uid!, notify: true)
+            .then((value) {
+          Push.back();
+          Push.replace(route: '/dashboardScreen');
+        });
       },
     );
   }

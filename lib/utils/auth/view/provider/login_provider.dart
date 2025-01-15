@@ -24,7 +24,7 @@ class LoginProvider extends ChangeNotifier {
     final password = passwordController.text;
     validateEmail(email);
     validatePassword(password);
-    showLoadingIndicator('Verifing your credentials');
+    showLoadingIndicator('while verifing your credentials');
     final result = await GetAuth.instance.loginWithEmail(email, password);
     result.fold(
       (fail) {

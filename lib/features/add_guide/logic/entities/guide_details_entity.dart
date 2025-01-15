@@ -7,7 +7,9 @@ class GuideDetailsEntity {
   final IconDetailsEntity iconDetails;
   final int dateTime;
   double quizPercentage;
+  int quizAttempts;
   double mockPercentage;
+  int mockAttempts;
   double overallPercentage;
 
   GuideDetailsEntity({
@@ -17,7 +19,9 @@ class GuideDetailsEntity {
     required this.iconDetails,
     required this.dateTime,
     required this.quizPercentage,
+    required this.quizAttempts,
     required this.mockPercentage,
+    required this.mockAttempts,
     required this.overallPercentage,
   });
 
@@ -30,7 +34,9 @@ class GuideDetailsEntity {
       "icon_details": iconDetails.toJson(),
       "date_time": dateTime,
       "quiz_percentage": quizPercentage,
+      "quiz_attempts": quizAttempts,
       "mock_percentage": mockPercentage,
+      "mock_attempts": mockAttempts,
       "overall_percentage": overallPercentage,
     };
   }
@@ -44,7 +50,9 @@ class GuideDetailsEntity {
       iconDetails: IconDetailsEntity.fromJson(json["icon_details"]),
       dateTime: (json['date_time'] as int),
       quizPercentage: json['quiz_percentage'] as double,
+      quizAttempts: json['quiz_attempts'] as int,
       mockPercentage: json['mock_percentage'] as double,
+      mockAttempts: json['mock_attempts'] as int,
       overallPercentage: json['overall_percentage'] as double,
     );
   }

@@ -37,7 +37,7 @@ class LoggedInDetails extends StatelessWidget {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: authDetails.photoURL == ''
+              child: authDetails.photoURL == '' || authDetails.photoURL == null
                   ? Image.asset(
                       'assets/images/placeholder.jpg',
                       fit: BoxFit.cover,
@@ -63,6 +63,8 @@ class LoggedInDetails extends StatelessWidget {
           ),
           subtitle: Text(
             authDetails.displayName!,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         );

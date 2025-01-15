@@ -58,7 +58,7 @@ class AttemptQuizProvider extends ChangeNotifier {
   }
 
   next() {
-    if(selectedAnswers[currentIndex] == ''){
+    if (selectedAnswers[currentIndex] == '') {
       showWarningToast('Alert!!!', 'Please must select one of the option');
       return;
     }
@@ -185,7 +185,6 @@ $content
     double chapterWeight = 1 / totalChapters;
     double chapterContribution = chapterScore * chapterWeight;
     currentScore += chapterContribution;
-    guideDetails.quizPercentage = currentScore;
     guideDetails.quizPercentage = currentScore;
     guideDetails.overallPercentage = (currentScore + mockPercentage) / 2;
     guideProvider.update(guideDetails);
