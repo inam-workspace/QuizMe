@@ -201,10 +201,10 @@ class ContentSheet extends StatelessWidget {
                           showCustomDialog(
                               content: NotesPreview(guideDetails: guide));
                         } else {
-                          Push.to(
-                            route: '/addStudyGuide',
-                            arg: AddGuideArguments(guideDetails: guide),
-                          );
+                          // Push.to(
+                          //   route: '/addStudyGuide',
+                          //   arg: AddGuideArguments(guideDetails: guide),
+                          // );
                         }
                       },
                     ),
