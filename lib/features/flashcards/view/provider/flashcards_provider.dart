@@ -1,6 +1,20 @@
 import 'package:quiz_me/main/imports.dart';
 
 class FlashcardsProvider extends ChangeNotifier {
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    super.dispose();
+  }
+
   final GuideDetailsEntity guideDetails;
   final String chapter;
 
@@ -37,6 +51,7 @@ class FlashcardsProvider extends ChangeNotifier {
   FlashcardsProvider({required this.guideDetails, required this.chapter}) {
     generateFlipcards();
   }
+
   swipeEnd(int previousIndex, int targetIndex, SwiperActivity activity) {
     switch (activity) {
       case Swipe():
@@ -58,7 +73,12 @@ class FlashcardsProvider extends ChangeNotifier {
         learned: learnedCount,
         total: results.length,
       ),
-    );
+    ).then((value) {
+      if (value == 'review') {
+        setCurrentIndex = 0;
+        setLearnedCount = 0;
+      }
+    });
   }
 
   Future<void> generateFlipcards() async {

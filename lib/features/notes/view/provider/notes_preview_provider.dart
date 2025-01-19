@@ -1,6 +1,20 @@
 import 'package:quiz_me/main/imports.dart';
 
 class NotesPreviewProvider extends ChangeNotifier {
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    super.dispose();
+  }
+
   final GuideDetailsEntity guideDetails;
 
   List<DropdownMenuItem> _dropdownList = [];

@@ -11,6 +11,19 @@ class AttemptMockTestProvider extends ChangeNotifier {
   }) {
     generateMockTest();
   }
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    super.dispose();
+  }
 
   Failure? _failure;
   Failure? get failure => _failure;

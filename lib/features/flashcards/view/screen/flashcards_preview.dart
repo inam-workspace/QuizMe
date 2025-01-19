@@ -2,7 +2,12 @@ import 'package:quiz_me/main/imports.dart';
 
 class FlashcardsPreview extends StatelessWidget {
   final GuideDetailsEntity guideDetails;
-  const FlashcardsPreview({super.key, required this.guideDetails});
+  final bool isRegenerate;
+  const FlashcardsPreview({
+    super.key,
+    required this.guideDetails,
+    this.isRegenerate = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +141,10 @@ class FlashcardsPreview extends StatelessWidget {
                     ),
                     height: h(50),
                     onPressed: () {
+                      if (isRegenerate) {
+                        Push.back();
+                        Push.back();
+                      }
                       Push.replace(
                         route: '/flashcardsScreen',
                         arg: FlashcardsScreenArguments(

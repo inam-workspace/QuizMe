@@ -2,7 +2,12 @@ import 'package:quiz_me/main/imports.dart';
 
 class QuizPreview extends StatelessWidget {
   final GuideDetailsEntity guideDetails;
-  const QuizPreview({super.key, required this.guideDetails});
+  final bool isRegenerate;
+  const QuizPreview({
+    super.key,
+    required this.guideDetails,
+    this.isRegenerate = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +140,10 @@ class QuizPreview extends StatelessWidget {
                     ),
                     height: h(50),
                     onPressed: () {
+                      if (isRegenerate) {
+                        Push.back();
+                        Push.back();
+                      }
                       Push.replace(
                         route: '/attemptQuizScreen',
                         arg: AttemptQuizScreenArguments(

@@ -268,7 +268,10 @@ class QuizScoreSheet extends StatelessWidget {
                 height: h(50),
                 onPressed: () {
                   showCustomDialog(
-                    content: QuizPreview(guideDetails: args.guideDetails),
+                    content: QuizPreview(
+                      guideDetails: args.guideDetails,
+                      isRegenerate: true,
+                    ),
                   );
                 },
               ),

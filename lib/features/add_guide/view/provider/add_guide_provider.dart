@@ -79,6 +79,14 @@ class AddGuideProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
   AddGuideProvider() {
     searchController.addListener(() {
       if (searchController.text.isEmpty) {
@@ -92,6 +100,7 @@ class AddGuideProvider extends ChangeNotifier {
 
   @override
   void dispose() {
+    isDispose = true;
     reset();
     super.dispose();
   }
@@ -235,7 +244,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   processGuideDetails() async {
-    final uid = AppController.instance.currentUser!.uid;
+    final uid = AppController.instance.authDetails.uid!;
     showProcessingDialog();
     List<ChapterDetailsEntity> chaptersDetail = [];
     for (var chapter in chapters) {
@@ -249,6 +258,7 @@ class AddGuideProvider extends ChangeNotifier {
     }
     final iconDetails = icons.firstWhere((e) => e.selected == true);
     final payload = GuideDetailsEntity(
+      guideId: uniqueID,
       authId: uid,
       guideTitle: guideNameController.text,
       chaptersDetail: chaptersDetail,
@@ -292,7 +302,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   add(GuideDetailsEntity payload) async {
-    final uid = AppController.instance.currentUser!.uid;
+    final uid = AppController.instance.authDetails.uid!;
     final failureOrResult =
         await GetGuideDetails(repository).add(data: payload, id: uid);
     failureOrResult.fold((fail) {
@@ -307,7 +317,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   delete(GuideDetailsEntity payload) async {
-    final uid = AppController.instance.currentUser!.uid;
+    final uid = AppController.instance.authDetails.uid!;
     final failureOrResult =
         await GetGuideDetails(repository).delete(data: payload, id: uid);
     failureOrResult.fold((fail) {
@@ -318,7 +328,7 @@ class AddGuideProvider extends ChangeNotifier {
   }
 
   update(GuideDetailsEntity payload) async {
-    final uid = AppController.instance.currentUser!.uid;
+    final uid = AppController.instance.authDetails.uid!;
     final failureOrResult =
         await GetGuideDetails(repository).update(data: payload, id: uid);
     failureOrResult.fold((fail) {

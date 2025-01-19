@@ -7,6 +7,20 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 
 class NotesProvider extends ChangeNotifier {
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    super.dispose();
+  }
+
   final GuideDetailsEntity guideDetails;
   final String contentID;
 

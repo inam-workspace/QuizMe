@@ -245,7 +245,7 @@ class FlashcardsScoreSheet extends StatelessWidget {
                       ),
                       height: h(50),
                       onPressed: () {
-                        // Push.back(result: 'review');
+                        Push.back(result: 'review');
                       },
                     ),
                   ),
@@ -268,7 +268,10 @@ class FlashcardsScoreSheet extends StatelessWidget {
                 height: h(50),
                 onPressed: () {
                   showCustomDialog(
-                    content: FlashcardsPreview(guideDetails: args.guideDetails),
+                    content: FlashcardsPreview(
+                      guideDetails: args.guideDetails,
+                      isRegenerate: true,
+                    ),
                   );
                 },
               ),

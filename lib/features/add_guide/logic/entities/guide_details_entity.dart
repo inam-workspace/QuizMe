@@ -1,6 +1,7 @@
 import 'package:quiz_me/main/imports.dart';
 
 class GuideDetailsEntity {
+  final String guideId;
   final String authId;
   final String guideTitle;
   final List<ChapterDetailsEntity> chaptersDetail;
@@ -13,6 +14,7 @@ class GuideDetailsEntity {
   double overallPercentage;
 
   GuideDetailsEntity({
+    required this.guideId,
     required this.authId,
     required this.guideTitle,
     required this.chaptersDetail,
@@ -27,6 +29,7 @@ class GuideDetailsEntity {
 
   Map toJson() {
     return {
+      "guide_id": guideId,
       "auth_id": authId,
       "guide_title": guideTitle,
       "chapters_detail":
@@ -43,6 +46,7 @@ class GuideDetailsEntity {
 
   static GuideDetailsEntity fromJson(Map json) {
     return GuideDetailsEntity(
+      guideId: json['guide_id'] as String,
       authId: json['auth_id'] as String,
       guideTitle: json['guide_title'] as String,
       chaptersDetail: List<ChapterDetailsEntity>.from(

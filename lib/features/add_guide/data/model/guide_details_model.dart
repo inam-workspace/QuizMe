@@ -3,27 +3,30 @@ import 'package:quiz_me/main/imports.dart';
 @HiveType(typeId: 0)
 class GuideDetailsModel extends HiveObject {
   @HiveField(0)
-  final String authId;
+  final String guideId;
   @HiveField(1)
-  final String guideTitle;
+  final String authId;
   @HiveField(2)
-  final List<ChapterDetailsEntity> chaptersDetail;
+  final String guideTitle;
   @HiveField(3)
-  final IconDetailsEntity iconDetails;
+  final List<ChapterDetailsEntity> chaptersDetail;
   @HiveField(4)
-  final int dateTime;
+  final IconDetailsEntity iconDetails;
   @HiveField(5)
-  final double quizPercentage;
+  final int dateTime;
   @HiveField(6)
-  final int quizAttempts;
+  final double quizPercentage;
   @HiveField(7)
-  final double mockPercentage;
+  final int quizAttempts;
   @HiveField(8)
-  final int mockAttempts;
+  final double mockPercentage;
   @HiveField(9)
+  final int mockAttempts;
+  @HiveField(10)
   final double overallPercentage;
 
   GuideDetailsModel({
+    required this.guideId,
     required this.authId,
     required this.guideTitle,
     required this.chaptersDetail,
@@ -38,6 +41,7 @@ class GuideDetailsModel extends HiveObject {
 
   Map toJson() {
     return {
+      "guide_id": guideId,
       "auth_id": authId,
       "guide_title": guideTitle,
       "chapters_detail":
@@ -54,6 +58,7 @@ class GuideDetailsModel extends HiveObject {
 
   static GuideDetailsModel fromJson(Map json) {
     return GuideDetailsModel(
+      guideId: json['guide_id'],
       authId: json['auth_id'],
       guideTitle: json['guide_title'],
       chaptersDetail: List<ChapterDetailsEntity>.from(
@@ -61,9 +66,9 @@ class GuideDetailsModel extends HiveObject {
       iconDetails: IconDetailsEntity.fromJson(json["icon_details"]),
       dateTime: json['date_time'],
       quizPercentage: json['quiz_percentage'].toDouble(),
-      quizAttempts: json['quiz_attempts'].toDouble(),
+      quizAttempts: json['quiz_attempts'].toInt(),
       mockPercentage: json['mock_percentage'].toDouble(),
-      mockAttempts: json['mock_attempts'].toDouble(),
+      mockAttempts: json['mock_attempts'].toInt(),
       overallPercentage: json['overall_percentage'].toDouble(),
     );
   }
@@ -94,6 +99,7 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
   GuideDetailsModel read(BinaryReader reader) {
     Map data = reader.readMap();
 
+    final guideId = data['guide_id'];
     final authId = data['auth_id'];
     final guideTitle = data['guide_title'];
     final chaptersDetail = List<ChapterDetailsEntity>.from(
@@ -107,6 +113,7 @@ class GuideDetailsAdapter extends TypeAdapter<GuideDetailsModel> {
     final overallPercentage = data['overall_percentage'].toDouble();
 
     return GuideDetailsModel(
+      guideId: guideId,
       authId: authId,
       guideTitle: guideTitle,
       chaptersDetail: chaptersDetail,

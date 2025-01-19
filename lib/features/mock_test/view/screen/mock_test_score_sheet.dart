@@ -268,7 +268,10 @@ class MockTestScoreSheet extends StatelessWidget {
                 height: h(50),
                 onPressed: () {
                   showCustomDialog(
-                    content: MockTestPreview(guideDetails: args.guideDetails),
+                    content: MockTestPreview(
+                      guideDetails: args.guideDetails,
+                      isRegenerate: true,
+                    ),
                   );
                 },
               ),

@@ -2,7 +2,12 @@ import 'package:quiz_me/main/imports.dart';
 
 class MockTestPreview extends StatelessWidget {
   final GuideDetailsEntity guideDetails;
-  const MockTestPreview({super.key, required this.guideDetails});
+  final bool isRegenerate;
+  const MockTestPreview({
+    super.key,
+    required this.guideDetails,
+    this.isRegenerate = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +152,73 @@ class MockTestPreview extends StatelessWidget {
                         "Note",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      Text(
-                        "* Mock test includes all chapters combined.\n* Make sure you prepare well for mock test.\n* You wont get answers explanation during mock.\n* You can review your score and results at the end of mock test.",
-                        style: Theme.of(context).textTheme.labelMedium,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\u2022',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          SizedBox(width: w(10)),
+                          Expanded(
+                            child: Text(
+                              "Mock test includes all chapters combined.",
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\u2022',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          SizedBox(width: w(10)),
+                          Expanded(
+                            child: Text(
+                              "Make sure you prepare well for mock test.",
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\u2022',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          SizedBox(width: w(10)),
+                          Expanded(
+                            child: Text(
+                              "You wont get answers explanation during mock.",
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\u2022',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          SizedBox(width: w(10)),
+                          Expanded(
+                            child: Text(
+                              "You can review your score and results at the end of mock test.",
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: h(20)),
                       CustomButton(
@@ -168,6 +237,10 @@ class MockTestPreview extends StatelessWidget {
                         ),
                         height: h(50),
                         onPressed: () {
+                          if (isRegenerate) {
+                            Push.back();
+                            Push.back();
+                          }
                           Push.replace(
                             route: '/attemptMockTestScreen',
                             arg: AttemptMockTestScreenArguments(

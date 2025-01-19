@@ -1,6 +1,22 @@
 import 'package:quiz_me/main/imports.dart';
 
 class ChatProvider extends ChangeNotifier {
+  bool isDispose = false;
+
+  @override
+  notifyListeners() {
+    if (isDispose) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    controller.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
+
   TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
@@ -9,13 +25,6 @@ class ChatProvider extends ChangeNotifier {
   set setIsLoading(bool loading) {
     _isLoading = loading;
     notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    scrollController.dispose();
-    super.dispose();
   }
 
   Failure? _failure;
